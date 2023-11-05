@@ -46,7 +46,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     var details = {
-      "Home": Home(widget.data),
+      "Home": Home(widget.data, notes.values.toList()),
       "Vitals": const Vitals(),
       "Notes": Notes("Notes"),
       "Emotional and Mental Health": Notes("Emotional and Mental Health"),

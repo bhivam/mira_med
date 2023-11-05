@@ -21,7 +21,11 @@ class Notes extends StatelessWidget {
             children: notes.values
                 .toList()
                 .where((note) => note.type == category)
-                .map((note) => NoteTile(note))
+                .map((note) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
+                      child: NoteTile(note, 250),
+                    ))
                 .toList(),
           ),
           valueListenable: Hive.box<Note>('notes').listenable(),

@@ -56,6 +56,8 @@ class _SideBarState extends State<SideBar> {
                 ],
               ),
             ),
+            SideBarTile(
+                Icons.logout, "Logout", isCurrentPage, widget.changePage)
           ],
         ),
       ),
