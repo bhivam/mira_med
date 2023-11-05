@@ -1,4 +1,4 @@
-import 'package:dashboard/defaults/colors.dart';
+import 'package:dashboard/services/colors.dart';
 import 'package:dashboard/models/note.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

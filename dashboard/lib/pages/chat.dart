@@ -1,4 +1,4 @@
-import 'package:dashboard/defaults/media_query.dart';
+import 'package:dashboard/services/media_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

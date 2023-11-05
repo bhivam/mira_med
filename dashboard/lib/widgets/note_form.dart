@@ -1,5 +1,5 @@
-import 'package:dashboard/defaults/colors.dart';
-import 'package:dashboard/defaults/media_query.dart';
+import 'package:dashboard/services/colors.dart';
+import 'package:dashboard/services/media_query.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -18,7 +18,7 @@ class NoteForm extends StatelessWidget {
         backgroundColor: Colors.white,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
-          height: context.height * 0.5,
+          height: context.height * 0.7,
           width: context.height * 0.5,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,6 +48,7 @@ class NoteForm extends StatelessWidget {
                 controller: descriptionController,
                 minLines: 8,
                 maxLines: 8,
+                maxLength: 500,
                 decoration: const InputDecoration(
                   hintText: "Description",
                   fillColor: Colors.white54,

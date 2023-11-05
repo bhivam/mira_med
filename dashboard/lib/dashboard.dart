@@ -38,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
     "Other": Notes("Other"),
     "Alerts": Alerts(),
     "MiraBot": Chat(),
-    "Patient History": History(),
+    "Patient Information": History(),
   };
   Box<Note> notes = Hive.box<Note>('notes');
 
@@ -56,15 +56,21 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
       floatingActionButton: noteCategories.contains(currentPage)
-          ? FloatingActionButton(
-              onPressed: () {
-                showDialog(
-                    builder: (BuildContext context) {
-                      return NoteForm(currentPage);
+          ? Container(
+              height: 75,
+              width: 75,
+              child: FittedBox(
+                child: FloatingActionButton(
+                    onPressed: () {
+                      showDialog(
+                          builder: (BuildContext context) {
+                            return NoteForm(currentPage);
+                          },
+                          context: context);
                     },
-                    context: context);
-              },
-              child: const Icon(Icons.note_add))
+                    child: const Icon(Icons.note_add, size: 50)),
+              ),
+            )
           : null,
     );
   }

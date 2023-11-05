@@ -2,8 +2,8 @@ import 'package:dashboard/widgets/side_bar_tile.dart';
 import 'package:dashboard/widgets/sub_side_bar_tile.dart';
 import 'package:flutter/material.dart';
 
-import '../defaults/colors.dart';
-import '../defaults/media_query.dart';
+import '../services/colors.dart';
+import '../services/media_query.dart';
 import 'expandable_side_bar_tile.dart';
 
 class SideBar extends StatefulWidget {
@@ -51,7 +51,7 @@ class _SideBarState extends State<SideBar> {
                       isCurrentPage, widget.changePage),
                   SideBarTile(Icons.question_answer, "MiraBot", isCurrentPage,
                       widget.changePage),
-                  SideBarTile(Icons.import_contacts, "Patient History",
+                  SideBarTile(Icons.import_contacts, "Patient Information",
                       isCurrentPage, widget.changePage),
                 ],
               ),

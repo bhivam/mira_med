@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../defaults/colors.dart';
+import '../services/colors.dart';
 import '../models/note.dart';
 
 class NoteTile extends StatelessWidget {

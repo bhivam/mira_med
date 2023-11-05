@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../defaults/colors.dart';
+import '../services/colors.dart';
 
 class SideBarTile extends StatelessWidget {
   IconData icon;
