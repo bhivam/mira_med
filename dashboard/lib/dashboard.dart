@@ -15,7 +15,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'models/note.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  List<List<dynamic>> data;
+  Dashboard(this.data, {super.key});
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -34,7 +35,6 @@ class _DashboardState extends State<Dashboard> {
 
   Box<Note> notes = Hive.box<Note>('notes');
 
-
   void setPage(String pageName) {
     setState(() => currentPage = pageName);
   }
@@ -45,19 +45,19 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-  var details = {
-    "Home": const Home(),
-    "Vitals": const Vitals(),
-    "Notes": Notes("Notes"),
-    "Emotional and Mental Health": Notes("Emotional and Mental Health"),
-    "Therapy and Exercises": Notes("Therapy and Exercises"),
-    "Nutrition and Hydration": Notes("Nutrition and Hydration"),
-    "Mobility and Motor Skills": Notes("Mobility and Motor Skills"),
-    "Other": Notes("Other"),
-    "Alerts": const Alerts(),
-    "MiraBot": const Chat(),
-    "Patient Information": History(editHist),
-  };
+    var details = {
+      "Home": Home(widget.data),
+      "Vitals": const Vitals(),
+      "Notes": Notes("Notes"),
+      "Emotional and Mental Health": Notes("Emotional and Mental Health"),
+      "Therapy and Exercises": Notes("Therapy and Exercises"),
+      "Nutrition and Hydration": Notes("Nutrition and Hydration"),
+      "Mobility and Motor Skills": Notes("Mobility and Motor Skills"),
+      "Other": Notes("Other"),
+      "Alerts": const Alerts(),
+      "MiraBot": const Chat(),
+      "Patient Information": History(editHist),
+    };
 
     return Scaffold(
       body: Row(
@@ -102,17 +102,21 @@ class _DashboardState extends State<Dashboard> {
                     child: const Icon(Icons.note_add, size: 50)),
               ),
             )
-          : currentPage == "Patient Information" ? Container(
-              height: 75,
-              width: 75,
-              child: FittedBox(
-                child: FloatingActionButton(
-                    onPressed: () {
-                      setHistoryEditingMode();
-                    },
-                    child: editHist==false ? const Icon(Icons.check, size: 50) :  const Icon(Icons.edit, size: 50) ,
-              ),
-          ) ): null,
+          : currentPage == "Patient Information"
+              ? Container(
+                  height: 75,
+                  width: 75,
+                  child: FittedBox(
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        setHistoryEditingMode();
+                      },
+                      child: editHist == false
+                          ? const Icon(Icons.check, size: 50)
+                          : const Icon(Icons.edit, size: 50),
+                    ),
+                  ))
+              : null,
     );
   }
 }

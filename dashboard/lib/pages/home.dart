@@ -1,11 +1,14 @@
+import 'package:dashboard/services/colors.dart';
 import 'package:dashboard/services/media_query.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  List<List<dynamic>> data;
+  Home(this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +18,15 @@ class Home extends StatelessWidget {
         children: [
           SizedBox(height: 20),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(width: context.width * 0.0125),
               Container(
-                width: context.width * 0.775,
+                width: context.width * 0.3875,
                 child: Stack(
                   children: <Widget>[
                     Card(
                       child: AspectRatio(
-                        aspectRatio: 1.70,
+                        aspectRatio: 1,
                         child: Padding(
                           padding: const EdgeInsets.only(
                             right: 18,
@@ -32,7 +35,7 @@ class Home extends StatelessWidget {
                             bottom: 12,
                           ),
                           child: LineChart(
-                            mainData(),
+                            mainData(data),
                           ),
                         ),
                       ),
@@ -40,7 +43,26 @@ class Home extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(width: context.width * 0.0125),
+              Container(
+                width: context.width * 0.3875,
+                child: Stack(
+                  children: <Widget>[
+                    Card(
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            right: 18,
+                            left: 12,
+                            top: 24,
+                            bottom: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           )
         ],
@@ -50,75 +72,15 @@ class Home extends StatelessWidget {
   }
 }
 
-LineChartData mainData() {
+LineChartData mainData(List<List<dynamic>> data) {
   return LineChartData(
     rangeAnnotations: RangeAnnotations(
       verticalRangeAnnotations: [
         VerticalRangeAnnotation(
-          x1: 2,
-          x2: 5,
-          color: Color(0xffFBC756).withOpacity(0.2),
+          x1: 68,
+          x2: 93,
+          color: Colors.red.withOpacity(0.3),
         ),
-        VerticalRangeAnnotation(
-          x1: 8,
-          x2: 9,
-          color: Color(0xff34C4F8).withOpacity(0.2),
-        ),
-      ],
-      horizontalRangeAnnotations: [
-        HorizontalRangeAnnotation(
-          y1: 2,
-          y2: 3,
-          color: Color(0xff443C98).withOpacity(0.2),
-        ),
-      ],
-    ),
-    // uncomment to see ExtraLines with RangeAnnotations
-    extraLinesData: ExtraLinesData(
-//         extraLinesOnTop: true,
-      horizontalLines: [
-        HorizontalLine(
-          y: 5,
-          color: Colors.green,
-          strokeWidth: 2,
-          dashArray: [5, 10],
-          label: HorizontalLineLabel(
-            show: true,
-            alignment: Alignment.topRight,
-            padding: const EdgeInsets.only(right: 5, bottom: 5),
-            style: const TextStyle(
-              fontSize: 9,
-              fontWeight: FontWeight.bold,
-            ),
-            labelResolver: (line) => 'H: ${line.y}',
-          ),
-        ),
-      ],
-      verticalLines: [
-        VerticalLine(
-          x: 5.7,
-          color: Colors.blue,
-          strokeWidth: 2,
-          dashArray: [5, 10],
-          label: VerticalLineLabel(
-            show: true,
-            alignment: Alignment.topRight,
-            padding: const EdgeInsets.only(left: 10, top: 5),
-            style: const TextStyle(
-              fontSize: 9,
-              fontWeight: FontWeight.bold,
-            ),
-            labelResolver: (line) => 'V: ${line.x}',
-          ),
-        ),
-        VerticalLine(
-          x: 8.5,
-          color: Colors.transparent,
-        ),
-        VerticalLine(
-          x: 3.5,
-          color: Colors.transparent,
-        )
       ],
     ),
     gridData: FlGridData(
@@ -133,8 +95,8 @@ LineChartData mainData() {
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: 30,
-          // getTitlesWidget: bottomTitleWidgets,
-          interval: 4,
+          getTitlesWidget: bottomTitleWidgets,
+          interval: 8,
         ),
       ),
       leftTitles: AxisTitles(
@@ -170,7 +132,7 @@ LineChartData mainData() {
         }).toList();
       },
       touchTooltipData: LineTouchTooltipData(
-        tooltipBgColor: Colors.blue,
+        tooltipBgColor: gray,
       ),
     ),
     borderData: FlBorderData(
@@ -179,25 +141,23 @@ LineChartData mainData() {
         color: Colors.black,
       ),
     ),
-    minX: 0,
-    maxX: 11,
-    minY: 0,
-    maxY: 6,
+    // minX: 48,
+    // maxX: 11,
+    // minY: 0,
+    // maxY: 96,
     lineBarsData: [
       LineChartBarData(
-        spots: const [
-          FlSpot(0, 1),
-          FlSpot(2, 1),
-          FlSpot(4.9, 5),
-          FlSpot(6.8, 5),
-          FlSpot(7.5, 3.5),
-          FlSpot.nullSpot,
-          FlSpot(7.5, 2),
-          FlSpot(8, 1),
-          FlSpot(10, 2),
-          FlSpot(11, 2.5),
-        ],
-        dashArray: [10, 6],
+        spots: data.map((e) => FlSpot(e[0], e[2])).toList(),
+        isCurved: true,
+        color: Colors.orange,
+        barWidth: 4,
+        isStrokeCapRound: true,
+        dotData: FlDotData(
+          show: false,
+        ),
+      ),
+      LineChartBarData(
+        spots: data.map((e) => FlSpot(e[0], e[3])).toList(),
         isCurved: true,
         color: Colors.red,
         barWidth: 4,
@@ -206,6 +166,27 @@ LineChartData mainData() {
           show: false,
         ),
       ),
+      LineChartBarData(
+        spots: data.map((e) => FlSpot(e[0], e[4])).toList(),
+        isCurved: true,
+        color: Colors.blue,
+        barWidth: 4,
+        isStrokeCapRound: true,
+        dotData: FlDotData(
+          show: false,
+        ),
+      ),
     ],
+  );
+}
+
+Widget bottomTitleWidgets(double value, TitleMeta meta) {
+  const style = TextStyle(
+    fontSize: 10,
+    color: Colors.black,
+  );
+  return SideTitleWidget(
+    axisSide: meta.axisSide,
+    child: Text("${value % 24}:00", style: style),
   );
 }

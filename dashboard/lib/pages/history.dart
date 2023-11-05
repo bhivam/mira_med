@@ -16,36 +16,39 @@ class History extends StatefulWidget {
 class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
-
     return Container(
-        // create box called history, use hive to store the data from the history box
-        // maybe create a patient history object and store it all in hive
-        // simplest way - key value pairs
-        child: Container (
-          padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-          child: Column(
-            children: [
-              Row (
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      PatientEntry(widget.editHist, 'patient_name', 'Name'),
-                      PatientEntryLarge(widget.editHist, 'patient_meds', 'Medications'),
-                      PatientEntryLarge(widget.editHist, 'patient_allergies', 'Allergies'),
-                    ],
-                  ),
-                  Column(
-                    children: [
+      // create box called history, use hive to store the data from the history box
+      // maybe create a patient history object and store it all in hive
+      // simplest way - key value pairs
+      child: Container(
+        width: 0.8 * context.width,
+        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  children: [
+                    PatientEntry(widget.editHist, 'patient_name', 'Name'),
+                    PatientEntryLarge(
+                        widget.editHist, 'patient_meds', 'Medications'),
+                    PatientEntryLarge(
+                        widget.editHist, 'patient_allergies', 'Allergies'),
+                  ],
+                ),
+                Column(
+                  children: [
                     PatientEntry(widget.editHist, 'patient_age', 'Age'),
-                    PatientEntryLarge(widget.editHist, 'patient_surgeries', 'Surgeries'),
-                    PatientEntryLarge(widget.editHist, 'patient_soc', 'Social History'),
-                    ],
-                  ),
-                ],
-              ), 
-            ],
-          ),
+                    PatientEntryLarge(
+                        widget.editHist, 'patient_surgeries', 'Surgeries'),
+                    PatientEntryLarge(
+                        widget.editHist, 'patient_soc', 'Social History'),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
