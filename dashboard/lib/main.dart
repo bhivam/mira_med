@@ -50,6 +50,7 @@ void main() async {
 
   await Hive.openBox<Note>('notes');
   await Hive.openBox<Alert>('alerts');
+  await Hive.openBox('patient_info');
 
   List<List<dynamic>> data = await _loadCsv();
   Hive.box<Alert>('alerts').clear();

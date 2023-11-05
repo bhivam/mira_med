@@ -8,6 +8,7 @@ import 'package:dashboard/services/colors.dart';
 import 'package:dashboard/services/media_query.dart';
 import 'package:dashboard/widgets/note_form.dart';
 import 'package:dashboard/widgets/side_bar.dart';
+import '/widgets/patient_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -22,6 +23,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   String currentPage = "Home";
+  bool editHist = true;
   List<String> noteCategories = [
     "Emotional and Mental Health",
     "Therapy and Exercises",
@@ -29,6 +31,20 @@ class _DashboardState extends State<Dashboard> {
     "Mobility and Motor Skills",
     "Other"
   ];
+
+  Box<Note> notes = Hive.box<Note>('notes');
+
+
+  void setPage(String pageName) {
+    setState(() => currentPage = pageName);
+  }
+
+  void setHistoryEditingMode() {
+    setState(() => editHist = !editHist);
+  }
+
+  @override
+  Widget build(BuildContext context) {
   var details = {
     "Home": const Home(),
     "Vitals": const Vitals(),
@@ -40,16 +56,9 @@ class _DashboardState extends State<Dashboard> {
     "Other": Notes("Other"),
     "Alerts": const Alerts(),
     "MiraBot": const Chat(),
-    "Patient Information": const History(),
+    "Patient Information": History(editHist),
   };
-  Box<Note> notes = Hive.box<Note>('notes');
 
-  void setPage(String pageName) {
-    setState(() => currentPage = pageName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
         children: [
@@ -93,7 +102,17 @@ class _DashboardState extends State<Dashboard> {
                     child: const Icon(Icons.note_add, size: 50)),
               ),
             )
-          : null,
+          : currentPage == "Patient Information" ? Container(
+              height: 75,
+              width: 75,
+              child: FittedBox(
+                child: FloatingActionButton(
+                    onPressed: () {
+                      setHistoryEditingMode();
+                    },
+                    child: editHist==false ? const Icon(Icons.check, size: 50) :  const Icon(Icons.edit, size: 50) ,
+              ),
+          ) ): null,
     );
   }
 }
