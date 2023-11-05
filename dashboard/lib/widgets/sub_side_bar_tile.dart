@@ -29,7 +29,7 @@ class SubSideBarTile extends StatelessWidget {
                 bottomLeft: Radius.circular(10))),
         tileColor: backgroundColor,
         title: Padding(
-            padding: EdgeInsets.only(left: 8),
+            padding: EdgeInsets.only(left: 52),
             child: Text(title, style: TextStyle(color: textColor))),
       ),
     );

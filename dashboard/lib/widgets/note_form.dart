@@ -18,8 +18,8 @@ class NoteForm extends StatelessWidget {
         backgroundColor: Colors.white,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
-          height: context.height * 0.7,
-          width: context.height * 0.5,
+          height: context.height * 0.6,
+          width: context.height * 0.575,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,6 +29,7 @@ class NoteForm extends StatelessWidget {
                       .textTheme
                       .displayMedium!
                       .copyWith(fontWeight: FontWeight.bold)),
+              SizedBox(height: 5),
               TextFormField(
                 controller: titleController,
                 decoration: const InputDecoration(
@@ -46,8 +47,8 @@ class NoteForm extends StatelessWidget {
               SizedBox(height: 10),
               TextFormField(
                 controller: descriptionController,
-                minLines: 8,
-                maxLines: 8,
+                minLines: 10,
+                maxLines: 10,
                 maxLength: 500,
                 decoration: const InputDecoration(
                   hintText: "Description",

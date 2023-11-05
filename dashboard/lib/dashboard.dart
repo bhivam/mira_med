@@ -4,6 +4,8 @@ import 'package:dashboard/pages/history.dart';
 import 'package:dashboard/pages/home.dart';
 import 'package:dashboard/pages/notes.dart';
 import 'package:dashboard/pages/vitals.dart';
+import 'package:dashboard/services/colors.dart';
+import 'package:dashboard/services/media_query.dart';
 import 'package:dashboard/widgets/note_form.dart';
 import 'package:dashboard/widgets/side_bar.dart';
 import 'package:flutter/material.dart';
@@ -28,17 +30,17 @@ class _DashboardState extends State<Dashboard> {
     "Other"
   ];
   var details = {
-    "Home": Home(),
-    "Vitals": Vitals(),
+    "Home": const Home(),
+    "Vitals": const Vitals(),
     "Notes": Notes("Notes"),
     "Emotional and Mental Health": Notes("Emotional and Mental Health"),
     "Therapy and Exercises": Notes("Therapy and Exercises"),
     "Nutrition and Hydration": Notes("Nutrition and Hydration"),
     "Mobility and Motor Skills": Notes("Mobility and Motor Skills"),
     "Other": Notes("Other"),
-    "Alerts": Alerts(),
-    "MiraBot": Chat(),
-    "Patient Information": History(),
+    "Alerts": const Alerts(),
+    "MiraBot": const Chat(),
+    "Patient Information": const History(),
   };
   Box<Note> notes = Hive.box<Note>('notes');
 
@@ -52,7 +54,27 @@ class _DashboardState extends State<Dashboard> {
       body: Row(
         children: [
           SideBar(setPage, currentPage),
-          details[currentPage] as Widget
+          Container(
+              width: context.width * 0.8,
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 0.2 * context.width),
+                    width: context.width * 0.8,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: const [
+                        0.1,
+                        0.9,
+                      ],
+                      colors: [lightPurple, darkPurple],
+                    )),
+                  ),
+                  details[currentPage] as Widget
+                ],
+              )),
         ],
       ),
       floatingActionButton: noteCategories.contains(currentPage)

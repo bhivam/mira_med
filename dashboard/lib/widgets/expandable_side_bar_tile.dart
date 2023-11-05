@@ -6,7 +6,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../services/colors.dart';
 
-class ExpandableSideBarTile extends StatelessWidget {
+class ExpandableSideBarTile extends StatefulWidget {
   IconData icon;
   String title;
   Color color;
@@ -18,24 +18,33 @@ class ExpandableSideBarTile extends StatelessWidget {
       [this.color = Colors.white]);
 
   @override
+  State<ExpandableSideBarTile> createState() => _ExpandableSideBarTileState();
+}
+
+class _ExpandableSideBarTileState extends State<ExpandableSideBarTile> {
+  @override
   Widget build(BuildContext context) {
-    Color iconTextColor = isCurrentPage(title) ? gray : Colors.white;
+    Color iconTextColor =
+        widget.isCurrentPage(widget.title) ? gray : Colors.white;
     Color backgroundColor =
-        isCurrentPage(title) ? Colors.white : Colors.transparent;
+        widget.isCurrentPage(widget.title) ? Colors.white : Colors.transparent;
+
+    bool expanded = false;
 
     return ExpansionTile(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10))),
-      children: subSidebarTiles,
+      onExpansionChanged: (value) => setState(() => expanded = value),
+      shape: Border.symmetric(
+          vertical: BorderSide.none,
+          horizontal: BorderSide(color: Colors.black26, width: 1)),
       backgroundColor: backgroundColor,
       leading: Padding(
           padding: EdgeInsets.only(left: 8),
-          child: Icon(icon, color: iconTextColor)),
-      title: Text(title, style: TextStyle(color: iconTextColor)),
+          child: Icon(widget.icon, color: iconTextColor)),
+      title: Padding(
+        padding: EdgeInsets.only(left: 8.0),
+        child: Text(widget.title, style: TextStyle(color: iconTextColor)),
+      ),
+      children: widget.subSidebarTiles,
     );
   }
 }

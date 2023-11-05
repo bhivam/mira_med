@@ -7,6 +7,27 @@ class Vitals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Center(child: Text("Vitals")), width: context.width * 0.8);
+      width: context.width * 0.8,
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Row(
+            children: [
+              SizedBox(width: context.width * 0.05 / 3),
+              Container(
+                  height: context.height * 0.375,
+                  width: context.width * 0.375,
+                  child: Card()),
+              SizedBox(width: context.width * 0.05 / 3),
+              Container(
+                  height: context.height * 0.375,
+                  width: context.width * 0.375,
+                  child: Card()),
+              SizedBox(width: context.width * 0.05 / 3),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
