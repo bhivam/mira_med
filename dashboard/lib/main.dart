@@ -9,6 +9,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NoteAdapter());
   await Hive.openBox<Note>('notes');
+  await Hive.openBox('patient_info');
 
   runApp(const MyApp());
 }
